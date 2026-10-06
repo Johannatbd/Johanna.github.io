@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f5f6f2">
+	<meta name="description" content="Persönliche Startseite von Johanna: Stationen, Interessen und ausgewählte Projekte.">
+	<title>Johanna | Persönliche Startseite</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--paper: #f5f6f2;
+			--surface: #ffffff;
+			--ink: #1d2924;
+			--muted: #58645e;
+			--line: #d8ded8;
+			--green: #20b581ff;
+			--green-dark: #104b35;
+			--coral: #c95843;
+			--row-hover: #e9f6f0;
+			--card-shadow: 0 12px 28px rgba(29, 41, 36, 0.09);
+			--page-width: 1080px;
+		}
+
+		* { box-sizing: border-box; }
+
+		html { scroll-behavior: smooth; }
+
+		body {
+			margin: 0;
+			background: var(--paper);
+			color: var(--ink);
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			font-size: 1rem;
+			line-height: 1.8;
+		}
+
+		a { color: var(--green-dark); }
+
+		a:focus-visible {
+			outline: 3px solid var(--coral);
+			outline-offset: 4px;
+		}
+
+		.skip-link {
+			position: absolute;
+			top: 0.75rem;
+			left: 0.75rem;
+			z-index: 1;
+			padding: 0.55rem 0.8rem;
+			transform: translateY(-160%);
+			background: var(--ink);
+			color: white;
+		}
+
+		.skip-link:focus { transform: translateY(0); }
+
+		.page-shell {
+			width: min(calc(100% - 2.5rem), var(--page-width));
+			margin-inline: auto;
+		}
+
+		header {
+			padding-block: 1.1rem;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.topline {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.brand {
+			color: var(--ink);
+			font-size: 0.95rem;
+			font-weight: 750;
+			text-decoration: none;
+		}
+
+		.topline p {
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.88rem;
+		}
+
+		main { padding-block: clamp(2rem, 6vw, 5rem); }
+
+		.intro {
+			display: grid;
+			grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+			align-items: center;
+			gap: clamp(2rem, 7vw, 6rem);
+			padding-bottom: clamp(3rem, 8vw, 6.5rem);
+		}
+
+		.eyebrow {
+			margin: 0 0 1rem;
+			color: var(--green-dark);
+			font-size: 0.78rem;
+			font-weight: 750;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		h1, h2, h3, p { margin-top: 0; }
+
+		h1 {
+			max-width: 12ch;
+			margin-bottom: 1.1rem;
+			font-size: clamp(2.6rem, 6vw, 5rem);
+			line-height: 1.04;
+			letter-spacing: -0.045em;
+		}
+
+		.intro-copy > p:not(.eyebrow) {
+			max-width: 62ch;
+			margin-bottom: 1.1rem;
+			color: var(--muted);
+		}
+
+		.portrait {
+			margin: 0;
+			padding: 0.65rem;
+			background: var(--surface);
+			border: 1px solid var(--line);
+			border-radius: 16px;
+			box-shadow: var(--card-shadow);
+			transform: rotate(1.5deg);
+		}
+
+		.portrait img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 4 / 5;
+			object-fit: cover;
+			background: #dce5dc;
+			border-radius: 10px;
+		}
+
+		.portrait figcaption {
+			padding: 0.8rem 0.3rem 0.15rem;
+			color: var(--muted);
+			font-size: 0.82rem;
+		}
+
+		section { padding-block: clamp(3rem, 7vw, 5rem); }
+
+		.section-heading {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 1rem;
+			margin-bottom: 1.8rem;
+		}
+
+		h2 {
+			margin-bottom: 0;
+			font-size: clamp(1.65rem, 3vw, 2.25rem);
+			line-height: 1.2;
+			letter-spacing: -0.025em;
+		}
+
+		.section-note {
+			max-width: 34ch;
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.table-wrap {
+			overflow-x: auto;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+			box-shadow: var(--card-shadow);
+		}
+
+		table {
+			width: 100%;
+			min-width: 620px;
+			border-collapse: collapse;
+			text-align: left;
+		}
+
+		th, td { padding: 1.05rem 1.15rem; }
+
+		thead th {
+			color: var(--muted);
+			font-size: 0.75rem;
+			font-weight: 700;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+		}
+
+		tbody tr {
+			border-top: 1px solid var(--line);
+			transition: background-color 150ms ease;
+		}
+
+		tbody tr:hover { background: var(--row-hover); }
+
+		tbody th {
+			width: 5rem;
+			color: var(--green-dark);
+			font-variant-numeric: tabular-nums;
+			font-weight: 700;
+		}
+
+		tbody td:last-child { color: var(--muted); }
+
+		.gallery {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1.25rem;
+		}
+
+		.gallery-card {
+			display: flex;
+			min-width: 0;
+			flex-direction: column;
+			overflow: hidden;
+			background: var(--surface);
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			box-shadow: var(--card-shadow);
+			color: inherit;
+			text-decoration: none;
+			transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+		}
+
+		.gallery-card:hover {
+			transform: translateY(-4px);
+			border-color: var(--green);
+			box-shadow: 0 18px 36px rgba(29, 41, 36, 0.15);
+		}
+
+		.gallery-card img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 4 / 3;
+			object-fit: cover;
+			background: #dce5dc;
+		}
+
+		.card-copy { padding: 1.25rem 1.3rem 1.4rem; }
+
+		.card-copy h3 {
+			margin-bottom: 0.35rem;
+			font-size: 1.08rem;
+		}
+
+		.card-copy p {
+			margin-bottom: 0;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.card-copy span {
+			display: inline-block;
+			margin-top: 0.75rem;
+			color: var(--green-dark);
+			font-size: 0.82rem;
+			font-weight: 700;
+		}
+
+		footer {
+			padding-block: 1.2rem 2rem;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+			font-size: 0.85rem;
+		}
+
+		footer p { margin-bottom: 0; }
+
+		@media (max-width: 720px) {
+			.page-shell { width: min(calc(100% - 1.5rem), var(--page-width)); }
+			.intro { grid-template-columns: 1fr; gap: 2rem; }
+			.portrait { width: min(78%, 340px); margin-inline: auto; }
+			.section-heading { align-items: start; flex-direction: column; }
+			.gallery { grid-template-columns: 1fr; }
+			.gallery-card { display: grid; grid-template-columns: minmax(110px, 0.8fr) 1.2fr; }
+			.gallery-card img { height: 100%; min-height: 150px; aspect-ratio: auto; }
+			.card-copy { align-self: center; padding: 0.8rem; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after {
+				scroll-behavior: auto !important;
+				transition-duration: 0.01ms !important;
+			}
+		}
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+	<header>
+		<div class="page-shell topline">
+			<a class="brand" href="#start">Johanna</a>
+			<p>Geoinformatik · Lernen, entdecken, kartieren</p>
+		</div>
+	</header>
+
+	<main id="inhalt" class="page-shell">
+		<section id="start" class="intro" aria-labelledby="intro-title">
+			<div class="intro-copy">
+				<p class="eyebrow">Hallo, ich bin</p>
+				<h1 id="intro-title">Johanna.</h1>
+				<p>Mich begeistert, wie Karten komplexe Zusammenhänge sichtbar machen. Ich studiere Geoinformatik und beschäftige mich damit, räumliche Daten verständlich und sorgfältig aufzubereiten.</p>
+				<p>Hier sammle ich einige Stationen meines Weges und Projekte, die meine Neugier auf Orte, Landschaften und digitale Karten zeigen.</p>
+			</div>
+			<figure class="portrait">
+				<img src="assets/me.jpg" alt="Porträt von Johanna" width="640" height="800" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 640 800%22%3E%3Crect width=%22640%22 height=%22800%22 fill=%22%23e4eee4%22/%3E%3Cpath d=%22M0 190 Q160 120 320 190 T640 190 M0 230 Q160 160 320 230 T640 230 M0 570 Q160 500 320 570 T640 570 M0 610 Q160 540 320 610 T640 610%22 fill=%22none%22 stroke=%22%23b7cdbd%22 stroke-width=%223%22/%3E%3Ccircle cx=%22320%22 cy=%22400%22 r=%2290%22 fill=%22%23176447%22/%3E%3Ctext x=%22320%22 y=%22428%22 text-anchor=%22middle%22 font-family=%22system-ui,sans-serif%22 font-size=%2272%22 fill=%22white%22%3EJ%3C/text%3E%3C/svg%3E';this.alt='Platzhalter mit Initiale J; Foto unter assets/me.jpg ergänzen';">
+				<figcaption>Porträtdatei: assets/me.jpg</figcaption>
+			</figure>
+		</section>
+
+		<section aria-labelledby="timeline-title">
+			<div class="section-heading">
+				<div>
+					<p class="eyebrow">Mein Weg</p>
+					<h2 id="timeline-title">Sechs Stationen</h2>
+				</div>
+				<p class="section-note">Eine kleine Auswahl an Erfahrungen und Themen, die mich geprägt haben.</p>
+			</div>
+			<div class="table-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">Jahr</th>
+							<th scope="col">Station</th>
+							<th scope="col">Ort</th>
+							<th scope="col">Stichwort</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><th scope="row">2019</th><td>Schulabschluss</td><td>Heimatort</td><td>Neugier</td></tr>
+						<tr><th scope="row">2020</th><td>Erste eigene Reise</td><td>Norddeutschland</td><td>Orientierung</td></tr>
+						<tr><th scope="row">2021</th><td>Studienbeginn</td><td>Universität</td><td>Geodaten</td></tr>
+						<tr><th scope="row">2022</th><td>Erstes Kartenprojekt</td><td>Campus</td><td>QGIS</td></tr>
+						<tr><th scope="row">2024</th><td>Feldarbeit</td><td>Region</td><td>Geländedaten</td></tr>
+						<tr><th scope="row">2026</th><td>Neue Perspektiven</td><td>Überall</td><td>Entdecken</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<section aria-labelledby="gallery-title">
+			<div class="section-heading">
+				<div>
+					<p class="eyebrow">Weiterklicken</p>
+					<h2 id="gallery-title">Orte & Ideen</h2>
+				</div>
+				<p class="section-note">Drei Anlaufstellen, die meine Arbeit mit Karten und räumlichen Daten begleiten.</p>
+			</div>
+			<div class="gallery">
+				<a class="gallery-card" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">
+					<img src="https://images.unsplash.com/photo-1524666041070-9a8762e9c6fe?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Karte mit Wegen und geografischen Details" loading="lazy" width="900" height="675">
+					<div class="card-copy">
+						<h3>OpenStreetMap</h3>
+						<p>Eine offene Karte, die durch gemeinsames Wissen wächst.</p>
+						<span>openstreetmap.org ↗</span>
+					</div>
+				</a>
+				<a class="gallery-card" href="https://qgis.org/" target="_blank" rel="noopener noreferrer">
+					<img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Berglandschaft mit See und markanten räumlichen Strukturen" loading="lazy" width="900" height="675">
+					<div class="card-copy">
+						<h3>QGIS</h3>
+						<p>Werkzeuge, um Geodaten zu analysieren und Karten zu gestalten.</p>
+						<span>qgis.org ↗</span>
+					</div>
+				</a>
+				<a class="gallery-card" href="https://earthobservatory.nasa.gov/" target="_blank" rel="noopener noreferrer">
+					<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Weite Landschaft im warmen Licht" loading="lazy" width="900" height="675">
+					<div class="card-copy">
+						<h3>Earth Observatory</h3>
+						<p>Unser Planet aus der Perspektive von Satelliten und Forschung.</p>
+						<span>earthobservatory.nasa.gov ↗</span>
+					</div>
+				</a>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="page-shell"><p>© 2026 Johanna · Mit Neugier gestaltet.</p></div>
+	</footer>
+</body>
+</html>

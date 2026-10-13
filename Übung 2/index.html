@@ -200,6 +200,17 @@
 			color: var(--muted);
 		}
 
+		.intro h1 {
+			max-width: none;
+			font-size: 2.6rem;
+		}
+
+		.course-note {
+			margin-bottom: 1rem;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
 		.portrait {
 			margin: 0;
 			padding: 0.65rem;
@@ -256,6 +267,27 @@
 			background: var(--surface);
 			box-shadow: var(--card-shadow);
 		}
+
+		.study-table { min-width: 0; }
+
+		.study-table tbody th { width: 36%; }
+
+		.about-site-card {
+			padding: clamp(1.25rem, 3vw, 2rem);
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+			box-shadow: var(--card-shadow);
+		}
+
+		.about-site-card p {
+			max-width: 72ch;
+			color: var(--muted);
+		}
+
+		.about-site-card p.eyebrow { color: var(--green-dark); }
+
+		.about-site-card p:last-child { margin-bottom: 0; }
 
 		table {
 			width: 100%;
@@ -465,6 +497,7 @@
 			.tab-button { min-width: 0; padding-inline: 0.35rem; }
 			.intro { grid-template-columns: 1fr; gap: 2rem; }
 			.portrait { width: min(78%, 340px); margin-inline: auto; }
+			.study-table th, .study-table td { padding: 0.8rem 0.65rem; }
 			.section-heading { align-items: start; flex-direction: column; }
 			.gallery { grid-template-columns: 1fr; }
 			.news-grid { grid-template-columns: 1fr; }
@@ -505,10 +538,13 @@
 		<div class="tab-panel is-active" id="about-panel" role="tabpanel" aria-labelledby="about-tab" tabindex="0">
 		<section id="start" class="intro" aria-labelledby="intro-title">
 			<div class="intro-copy">
-				<p class="eyebrow">Hallo, ich bin</p>
-				<h1 id="intro-title">Johanna.</h1>
-				<p>Mich begeistert, wie Karten komplexe Zusammenhänge sichtbar machen. Ich studiere Geoinformatik und beschäftige mich damit, räumliche Daten verständlich und sorgfältig aufzubereiten.</p>
-				<p>Hier sammle ich einige Stationen meines Weges und Projekte, die meine Neugier auf Orte, Landschaften und digitale Karten zeigen.</p>
+				<p class="eyebrow">Geoinformatik und Vermessung · 5. Semester · Hochschule Mainz</p>
+				<h1 id="intro-title">Hi, ich bin Johanna! 👋</h1>
+				<p class="course-note">Diese Webseite ist im Rahmen der Geoinformatik-Übungen bei Prof. Dr. Yu Feng entstanden.</p>
+				<p>Schön, dass du auf meiner Webseite vorbeischaust!</p>
+				<p>Ich studiere Geoinformatik und Vermessung im 5. Semester an der Hochschule Mainz. In meinem Studium beschäftige ich mich mit geografischen Informationen, digitalen Karten, Vermessung und den Technologien, die dahinterstecken.</p>
+				<p>Von klassischen Vermessungsmethoden über die Arbeit mit Geoinformationssystemen bis hin zur Verarbeitung räumlicher Daten und Programmierung lerne ich viele unterschiedliche Bereiche kennen.</p>
+				<p>Auf dieser Webseite möchte ich einen kleinen Einblick in mein Studium geben, meine Projekte vorstellen und zeigen, was ich dabei lerne und ausprobiere.</p>
 			</div>
 			<figure class="portrait">
 				<img src="assets/profilbild.png" alt="Profilbild von Johanna" width="640" height="800" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 640 800%22%3E%3Crect width=%22640%22 height=%22800%22 fill=%22%23e4eee4%22/%3E%3Cpath d=%22M0 190 Q160 120 320 190 T640 190 M0 230 Q160 160 320 230 T640 230 M0 570 Q160 500 320 570 T640 570 M0 610 Q160 540 320 610 T640 610%22 fill=%22none%22 stroke=%22%23b7cdbd%22 stroke-width=%223%22/%3E%3Ccircle cx=%22320%22 cy=%22400%22 r=%2290%22 fill=%22%23176447%22/%3E%3Ctext x=%22320%22 y=%22428%22 text-anchor=%22middle%22 font-family=%22system-ui,sans-serif%22 font-size=%2272%22 fill=%22white%22%3EJ%3C/text%3E%3C/svg%3E';this.alt='Platzhalter mit Initiale J; Foto unter assets/profilbild.png ergänzen';">
@@ -516,33 +552,43 @@
 			</figure>
 		</section>
 
-		<section aria-labelledby="timeline-title">
+		<section aria-labelledby="study-title">
 			<div class="section-heading">
 				<div>
-					<p class="eyebrow">Mein Weg</p>
-					<h2 id="timeline-title">Sechs Stationen</h2>
+					<p class="eyebrow">Studium</p>
+					<h2 id="study-title">Mein Studium auf einen Blick</h2>
 				</div>
-				<p class="section-note">Eine kleine Auswahl an Erfahrungen und Themen, die mich geprägt haben.</p>
+				<p class="section-note">Geoinformatik und Vermessung an der Hochschule Mainz.</p>
 			</div>
 			<div class="table-wrap">
-				<table>
+				<table class="study-table">
 					<thead>
 						<tr>
-							<th scope="col">Jahr</th>
-							<th scope="col">Station</th>
-							<th scope="col">Ort</th>
-							<th scope="col">Stichwort</th>
+							<th scope="col">Bereich</th>
+							<th scope="col">Einblick</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr><th scope="row">2019</th><td>Schulabschluss</td><td>Heimatort</td><td>Neugier</td></tr>
-						<tr><th scope="row">2020</th><td>Erste eigene Reise</td><td>Norddeutschland</td><td>Orientierung</td></tr>
-						<tr><th scope="row">2021</th><td>Studienbeginn</td><td>Universität</td><td>Geodaten</td></tr>
-						<tr><th scope="row">2022</th><td>Erstes Kartenprojekt</td><td>Campus</td><td>QGIS</td></tr>
-						<tr><th scope="row">2024</th><td>Feldarbeit</td><td>Region</td><td>Geländedaten</td></tr>
-						<tr><th scope="row">2026</th><td>Neue Perspektiven</td><td>Überall</td><td>Entdecken</td></tr>
+						<tr><th scope="row">Hochschule</th><td>Hochschule Mainz</td></tr>
+						<tr><th scope="row">Studiengang</th><td>Geoinformatik und Vermessung</td></tr>
+						<tr><th scope="row">Aktuelles Semester</th><td>5. Semester</td></tr>
+						<tr><th scope="row">Vermessung</th><td>Geodätische Messverfahren und Auswertung</td></tr>
+						<tr><th scope="row">Geoinformationssysteme</th><td>QGIS und digitale Karten</td></tr>
+						<tr><th scope="row">Geodaten</th><td>Verarbeitung und Visualisierung räumlicher Informationen</td></tr>
+						<tr><th scope="row">Fernerkundung</th><td>Satellitenbilder und Earth Observation</td></tr>
+						<tr><th scope="row">Webentwicklung</th><td>HTML, CSS und JavaScript</td></tr>
 					</tbody>
 				</table>
+			</div>
+		</section>
+
+		<section class="about-site" aria-labelledby="about-site-title">
+			<div class="about-site-card">
+				<p class="eyebrow">Einblick in meine Arbeit</p>
+				<h2 id="about-site-title">Meine Webseite</h2>
+				<p>Diese Webseite ist im Rahmen meiner Geoinformatik-Übungen entstanden. Angefangen habe ich mit einer einfachen HTML-Seite, die ich nach und nach mit CSS und JavaScript erweitert habe.</p>
+				<p>Inzwischen gibt es verschiedene Themenbereiche, einen Light/Night Mode, eine Projektgalerie und einen News-Bereich, der seine Inhalte automatisch aus einer JSON-Datei lädt.</p>
+				<p>Die Webseite bietet mir die Möglichkeit, das Gelernte direkt anzuwenden und meine Kenntnisse in der Webentwicklung weiterzuentwickeln.</p>
 			</div>
 		</section>
 		</div>

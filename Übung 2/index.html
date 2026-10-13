@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f5f6f2">
+	<meta name="description" content="Persönliche Startseite von Johanna: Stationen, Interessen und ausgewählte Projekte.">
+	<title>Johanna | Persönliche Startseite</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--paper: #f5f6f2;
+			--surface: #ffffff;
+			--ink: #1d2924;
+			--muted: #58645e;
+			--line: #d8ded8;
+			--green: #20b581ff;
+			--green-dark: #104b35;
+			--coral: #c95843;
+			--row-hover: #e9f6f0;
+			--card-shadow: 0 12px 28px rgba(29, 41, 36, 0.09);
+			--page-width: 1080px;
+		}
+
+		:root[data-theme="dark"] {
+			color-scheme: dark;
+			--paper: #131b18;
+			--surface: #1d2823;
+			--ink: #edf3ee;
+			--muted: #bbc8bf;
+			--line: #3a4b42;
+			--green: #61d7a8;
+			--green-dark: #a4edcb;
+			--coral: #ff9580;
+			--row-hover: #263b32;
+			--card-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+		}
+
+		* {
+			box-sizing: border-box;
+			transition: color 220ms ease, background-color 220ms ease, border-color 220ms ease;
+		}
+
+		html { scroll-behavior: smooth; }
+
+		body {
+			margin: 0;
+			background: var(--paper);
+			color: var(--ink);
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			font-size: 1rem;
+			line-height: 1.8;
+		}
+
+		a { color: var(--green-dark); }
+
+		a:focus-visible {
+			outline: 3px solid var(--coral);
+			outline-offset: 4px;
+		}
+
+		.skip-link {
+			position: absolute;
+			top: 0.75rem;
+			left: 0.75rem;
+			z-index: 1;
+			padding: 0.55rem 0.8rem;
+			transform: translateY(-160%);
+			background: var(--ink);
+			color: white;
+		}
+
+		.skip-link:focus { transform: translateY(0); }
+
+		.page-shell {
+			width: min(calc(100% - 2.5rem), var(--page-width));
+			margin-inline: auto;
+		}
+
+		header {
+			padding-block: 1.1rem;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.topline {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.brand {
+			color: var(--ink);
+			font-size: 0.95rem;
+			font-weight: 750;
+			text-decoration: none;
+		}
+
+		.topline p {
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.88rem;
+		}
+
+		.theme-toggle {
+			flex: 0 0 auto;
+			padding: 0.6rem 0.9rem;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			background: var(--surface);
+			color: var(--ink);
+			font: inherit;
+			font-size: 0.88rem;
+			font-weight: 700;
+			cursor: pointer;
+		}
+
+		.theme-toggle:hover { border-color: var(--green); }
+
+		.theme-toggle:focus-visible {
+			outline: 3px solid var(--coral);
+			outline-offset: 3px;
+		}
+
+		.tab-list {
+			display: flex;
+			gap: 0.45rem;
+			width: fit-content;
+			max-width: 100%;
+			margin: 0 auto clamp(1.5rem, 4vw, 2.5rem);
+			padding: 0.35rem;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+		}
+
+		.tab-button {
+			min-width: 7rem;
+			padding: 0.65rem 1rem;
+			border: 1px solid transparent;
+			border-radius: 8px;
+			background: transparent;
+			color: var(--muted);
+			font: inherit;
+			font-weight: 700;
+			cursor: pointer;
+		}
+
+		.tab-button[aria-selected="true"] {
+			background: var(--ink);
+			color: var(--paper);
+		}
+
+		.tab-button:focus-visible {
+			outline: 3px solid var(--coral);
+			outline-offset: 2px;
+		}
+
+		.tab-panel[hidden] { display: none; }
+
+		.tab-panel.is-active { animation: panel-enter 360ms ease both; }
+
+		@keyframes panel-enter {
+			from { opacity: 0; transform: translateY(10px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		main { padding-block: clamp(2rem, 6vw, 5rem); }
+
+		.intro {
+			display: grid;
+			grid-template-columns: minmax(0, 1.25fr) minmax(220px, 0.75fr);
+			align-items: center;
+			gap: clamp(2rem, 7vw, 6rem);
+			padding-bottom: clamp(3rem, 8vw, 6.5rem);
+		}
+
+		.eyebrow {
+			margin: 0 0 1rem;
+			color: var(--green-dark);
+			font-size: 0.78rem;
+			font-weight: 750;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		h1, h2, h3, p { margin-top: 0; }
+
+		h1 {
+			max-width: 12ch;
+			margin-bottom: 1.1rem;
+			font-size: clamp(2.6rem, 6vw, 5rem);
+			line-height: 1.04;
+			letter-spacing: -0.045em;
+		}
+
+		.intro-copy > p:not(.eyebrow) {
+			max-width: 62ch;
+			margin-bottom: 1.1rem;
+			color: var(--muted);
+		}
+
+		.portrait {
+			margin: 0;
+			padding: 0.65rem;
+			background: var(--surface);
+			border: 1px solid var(--line);
+			border-radius: 16px;
+			box-shadow: var(--card-shadow);
+			transform: rotate(1.5deg);
+		}
+
+		.portrait img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 4 / 5;
+			object-fit: cover;
+			background: #dce5dc;
+			border-radius: 10px;
+		}
+
+		.portrait figcaption {
+			padding: 0.8rem 0.3rem 0.15rem;
+			color: var(--muted);
+			font-size: 0.82rem;
+		}
+
+		section { padding-block: clamp(3rem, 7vw, 5rem); }
+
+		.section-heading {
+			display: flex;
+			align-items: end;
+			justify-content: space-between;
+			gap: 1rem;
+			margin-bottom: 1.8rem;
+		}
+
+		h2 {
+			margin-bottom: 0;
+			font-size: clamp(1.65rem, 3vw, 2.25rem);
+			line-height: 1.2;
+			letter-spacing: -0.025em;
+		}
+
+		.section-note {
+			max-width: 34ch;
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.table-wrap {
+			overflow-x: auto;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+			box-shadow: var(--card-shadow);
+		}
+
+		table {
+			width: 100%;
+			min-width: 620px;
+			border-collapse: collapse;
+			text-align: left;
+		}
+
+		th, td { padding: 1.05rem 1.15rem; }
+
+		thead th {
+			color: var(--muted);
+			font-size: 0.75rem;
+			font-weight: 700;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+		}
+
+		tbody tr {
+			border-top: 1px solid var(--line);
+			transition: background-color 150ms ease;
+		}
+
+		tbody tr:hover { background: var(--row-hover); }
+
+		tbody th {
+			width: 5rem;
+			color: var(--green-dark);
+			font-variant-numeric: tabular-nums;
+			font-weight: 700;
+		}
+
+		tbody td:last-child { color: var(--muted); }
+
+		.gallery {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1.25rem;
+		}
+
+		.gallery-card {
+			display: flex;
+			min-width: 0;
+			flex-direction: column;
+			overflow: hidden;
+			background: var(--surface);
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			box-shadow: var(--card-shadow);
+			color: inherit;
+			text-decoration: none;
+			transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+		}
+
+		.gallery-card:hover {
+			transform: translateY(-4px);
+			border-color: var(--green);
+			box-shadow: 0 18px 36px rgba(29, 41, 36, 0.15);
+		}
+
+		.gallery-card img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 4 / 3;
+			object-fit: cover;
+			background: #dce5dc;
+		}
+
+		.card-copy { padding: 1.25rem 1.3rem 1.4rem; }
+
+		.card-copy h3 {
+			margin-bottom: 0.35rem;
+			font-size: 1.08rem;
+		}
+
+		.card-copy p {
+			margin-bottom: 0;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.card-copy span {
+			display: inline-block;
+			margin-top: 0.75rem;
+			color: var(--green-dark);
+			font-size: 0.82rem;
+			font-weight: 700;
+		}
+
+		.news-grid {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 1.25rem;
+		}
+
+		.news-card {
+			min-width: 0;
+			overflow: hidden;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+			box-shadow: var(--card-shadow);
+			transition: transform 180ms ease, box-shadow 180ms ease;
+		}
+
+		.news-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 18px 36px rgba(29, 41, 36, 0.15);
+		}
+
+		.news-card img {
+			display: block;
+			width: 100%;
+			aspect-ratio: 16 / 10;
+			object-fit: cover;
+			background: var(--row-hover);
+		}
+
+		.news-card-content { padding: 1.15rem 1.25rem 1.35rem; }
+
+		.news-card-meta {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 0.75rem;
+			margin-bottom: 0.75rem;
+			color: var(--muted);
+			font-size: 0.78rem;
+		}
+
+		.news-example {
+			padding: 0.15rem 0.5rem;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			color: var(--green-dark);
+			font-weight: 700;
+		}
+
+		.news-card h2 {
+			margin-bottom: 0.55rem;
+			font-size: 1.2rem;
+		}
+
+		.news-card p {
+			margin-bottom: 0;
+			color: var(--muted);
+			font-size: 0.92rem;
+		}
+
+		.news-status {
+			margin-bottom: 1.25rem;
+			color: var(--muted);
+		}
+
+		.news-status:empty { display: none; }
+		.news-status[data-state="error"] { color: var(--coral); }
+
+		footer {
+			padding-block: 1.2rem 2rem;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+			font-size: 0.85rem;
+		}
+
+		footer p { margin-bottom: 0; }
+
+		.contact-links {
+			position: fixed;
+			right: max(1rem, env(safe-area-inset-right));
+			bottom: max(1rem, env(safe-area-inset-bottom));
+			z-index: 10;
+			display: flex;
+			gap: 0.65rem;
+		}
+
+		.contact-link {
+			display: grid;
+			width: 3rem;
+			aspect-ratio: 1;
+			place-items: center;
+			border: 1px solid var(--line);
+			border-radius: 50%;
+			background: var(--surface);
+			box-shadow: var(--card-shadow);
+			color: var(--ink);
+			text-decoration: none;
+			transition: transform 180ms ease, border-color 180ms ease, color 180ms ease;
+		}
+
+		.contact-link:hover {
+			transform: translateY(-3px);
+			border-color: var(--green);
+			color: var(--green-dark);
+		}
+
+		.contact-link svg {
+			display: block;
+			width: 1.4rem;
+			height: 1.4rem;
+		}
+
+		@media (max-width: 720px) {
+			.page-shell { width: min(calc(100% - 1.5rem), var(--page-width)); }
+			.topline { flex-wrap: wrap; }
+			.topline p { order: 3; flex: 1 1 100%; }
+			.tab-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+			.tab-button { min-width: 0; padding-inline: 0.35rem; }
+			.intro { grid-template-columns: 1fr; gap: 2rem; }
+			.portrait { width: min(78%, 340px); margin-inline: auto; }
+			.section-heading { align-items: start; flex-direction: column; }
+			.gallery { grid-template-columns: 1fr; }
+			.news-grid { grid-template-columns: 1fr; }
+			.gallery-card { display: grid; grid-template-columns: minmax(110px, 0.8fr) 1.2fr; }
+			.gallery-card img { height: 100%; min-height: 150px; aspect-ratio: auto; }
+			.card-copy { align-self: center; padding: 0.8rem; }
+			.contact-links { right: max(0.75rem, env(safe-area-inset-right)); bottom: max(0.75rem, env(safe-area-inset-bottom)); gap: 0.5rem; }
+			.contact-link { width: 2.75rem; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after {
+				scroll-behavior: auto !important;
+				transition-duration: 0.01ms !important;
+				animation-duration: 0.01ms !important;
+				animation-iteration-count: 1 !important;
+			}
+		}
+	</style>
+</head>
+<body>
+	<a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+	<header>
+		<div class="page-shell topline">
+			<a class="brand" href="#start">Johanna</a>
+			<p>Geoinformatik · Lernen, entdecken, kartieren</p>
+			<button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Dunkles Design aktivieren">Nachtmodus</button>
+		</div>
+	</header>
+
+	<main id="inhalt" class="page-shell">
+		<div class="tab-list" role="tablist" aria-label="Seitenbereiche">
+			<button class="tab-button" id="about-tab" type="button" role="tab" aria-selected="true" aria-controls="about-panel" tabindex="0">About</button>
+			<button class="tab-button" id="news-tab" type="button" role="tab" aria-selected="false" aria-controls="news-panel" tabindex="-1">News</button>
+			<button class="tab-button" id="projects-tab" type="button" role="tab" aria-selected="false" aria-controls="projects-panel" tabindex="-1">Projects</button>
+		</div>
+
+		<div class="tab-panel is-active" id="about-panel" role="tabpanel" aria-labelledby="about-tab" tabindex="0">
+		<section id="start" class="intro" aria-labelledby="intro-title">
+			<div class="intro-copy">
+				<p class="eyebrow">Hallo, ich bin</p>
+				<h1 id="intro-title">Johanna.</h1>
+				<p>Mich begeistert, wie Karten komplexe Zusammenhänge sichtbar machen. Ich studiere Geoinformatik und beschäftige mich damit, räumliche Daten verständlich und sorgfältig aufzubereiten.</p>
+				<p>Hier sammle ich einige Stationen meines Weges und Projekte, die meine Neugier auf Orte, Landschaften und digitale Karten zeigen.</p>
+			</div>
+			<figure class="portrait">
+				<img src="assets/profilbild.png" alt="Profilbild von Johanna" width="640" height="800" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 640 800%22%3E%3Crect width=%22640%22 height=%22800%22 fill=%22%23e4eee4%22/%3E%3Cpath d=%22M0 190 Q160 120 320 190 T640 190 M0 230 Q160 160 320 230 T640 230 M0 570 Q160 500 320 570 T640 570 M0 610 Q160 540 320 610 T640 610%22 fill=%22none%22 stroke=%22%23b7cdbd%22 stroke-width=%223%22/%3E%3Ccircle cx=%22320%22 cy=%22400%22 r=%2290%22 fill=%22%23176447%22/%3E%3Ctext x=%22320%22 y=%22428%22 text-anchor=%22middle%22 font-family=%22system-ui,sans-serif%22 font-size=%2272%22 fill=%22white%22%3EJ%3C/text%3E%3C/svg%3E';this.alt='Platzhalter mit Initiale J; Foto unter assets/profilbild.png ergänzen';">
+				<figcaption>Profilbild: assets/profilbild.png</figcaption>
+			</figure>
+		</section>
+
+		<section aria-labelledby="timeline-title">
+			<div class="section-heading">
+				<div>
+					<p class="eyebrow">Mein Weg</p>
+					<h2 id="timeline-title">Sechs Stationen</h2>
+				</div>
+				<p class="section-note">Eine kleine Auswahl an Erfahrungen und Themen, die mich geprägt haben.</p>
+			</div>
+			<div class="table-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">Jahr</th>
+							<th scope="col">Station</th>
+							<th scope="col">Ort</th>
+							<th scope="col">Stichwort</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><th scope="row">2019</th><td>Schulabschluss</td><td>Heimatort</td><td>Neugier</td></tr>
+						<tr><th scope="row">2020</th><td>Erste eigene Reise</td><td>Norddeutschland</td><td>Orientierung</td></tr>
+						<tr><th scope="row">2021</th><td>Studienbeginn</td><td>Universität</td><td>Geodaten</td></tr>
+						<tr><th scope="row">2022</th><td>Erstes Kartenprojekt</td><td>Campus</td><td>QGIS</td></tr>
+						<tr><th scope="row">2024</th><td>Feldarbeit</td><td>Region</td><td>Geländedaten</td></tr>
+						<tr><th scope="row">2026</th><td>Neue Perspektiven</td><td>Überall</td><td>Entdecken</td></tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+		</div>
+
+		<section class="tab-panel" id="news-panel" role="tabpanel" aria-labelledby="news-tab" tabindex="0" hidden>
+			<div class="section-heading">
+				<div>
+					<p class="eyebrow">Aktuelles</p>
+					<h1 id="news-title">News</h1>
+				</div>
+			</div>
+			<p class="section-note">Neuigkeiten aus Studium, Geoinformatik und Webentwicklung.</p>
+			<div class="news-status" id="news-status" role="status" aria-live="polite">Nachrichten werden geladen ...</div>
+			<div class="news-grid" id="news-grid" aria-label="Nachrichten"></div>
+		</section>
+
+		<div class="tab-panel" id="projects-panel" role="tabpanel" aria-labelledby="projects-tab" tabindex="0" hidden>
+		<section aria-labelledby="gallery-title">
+			<div class="section-heading">
+				<div>
+					<p class="eyebrow">Weiterklicken</p>
+					<h2 id="gallery-title">Orte & Ideen</h2>
+				</div>
+				<p class="section-note">Drei Anlaufstellen, die meine Arbeit mit Karten und räumlichen Daten begleiten.</p>
+			</div>
+			<div class="gallery">
+				<a class="gallery-card" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">
+					<img src="assets/karte.png" alt="Illustrative topografische Kartenvisualisierung mit Fluss, Straßen und Höhenlinien" loading="lazy" width="900" height="675">
+					<div class="card-copy">
+						<h3>OpenStreetMap</h3>
+						<p>Eine offene Karte, die durch gemeinsames Wissen wächst.</p>
+						<span>openstreetmap.org ↗</span>
+					</div>
+				</a>
+				<a class="gallery-card" href="https://qgis.org/" target="_blank" rel="noopener noreferrer">
+					<img src="assets/Qgis.png" alt="QGIS-Kartenansicht mit topografischen Daten, Kartenebenen und Analysewerkzeugen" loading="lazy" width="900" height="675">
+					<div class="card-copy">
+						<h3>QGIS</h3>
+						<p>Mit QGIS lassen sich Geodaten analysieren und aussagekräftige Karten gestalten.</p>
+						<span>qgis.org ↗</span>
+					</div>
+				</a>
+				<a class="gallery-card" href="https://earthobservatory.nasa.gov/" target="_blank" rel="noopener noreferrer">
+					<img src="assets/Earth.png" alt="Satellit erfasst die Erdoberfläche und überträgt verschiedene Datenebenen" loading="lazy" width="900" height="675">
+					<div class="card-copy">
+						<h3>Earth Observation</h3>
+						<p>Satellitendaten zeigen Landschaften, Klima und Veränderungen unseres Planeten.</p>
+						<span>earthobservatory.nasa.gov ↗</span>
+					</div>
+				</a>
+			</div>
+		</section>
+		</div>
+	</main>
+
+	<footer>
+		<div class="page-shell"><p>© 2026 Johanna · Mit Neugier gestaltet.</p></div>
+	</footer>
+	<aside class="contact-links" aria-label="Kontaktmöglichkeiten">
+		<a class="contact-link" href="https://github.com/Johannatbd" target="_blank" rel="noopener noreferrer" aria-label="GitHub-Profil (Platzhalter, später ersetzen)" title="GitHub-Profil eintragen">
+			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.66-.22.66-.48v-1.69c-2.78.6-3.37-1.18-3.37-1.18-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.82.09-.64.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.28.1-2.66 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85 0 1.7.11 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.41.1 2.66.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .26.18.57.67.47A10 10 0 0 0 22 12C22 6.48 17.52 2 12 2Z"/></svg>
+		</a>
+		<a class="contact-link" href="mailto:johanna.theobald@students.hs-mainz.de?subject=Kontaktanfrage" aria-label="E-Mail schreiben (Platzhalteradresse ersetzen)" title="E-Mail-Adresse eintragen">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+		</a>
+	</aside>
+	<script>
+		const themeToggle = document.querySelector("#theme-toggle");
+		const page = document.documentElement;
+
+		themeToggle.addEventListener("click", () => {
+			const isDark = page.dataset.theme !== "dark";
+			page.dataset.theme = isDark ? "dark" : "light";
+			themeToggle.setAttribute("aria-pressed", String(isDark));
+			themeToggle.setAttribute("aria-label", isDark ? "Helles Design aktivieren" : "Dunkles Design aktivieren");
+			themeToggle.textContent = isDark ? "Hellmodus" : "Nachtmodus";
+		});
+
+		const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+
+		function activateTab(selectedTab, moveFocus = false) {
+			tabs.forEach((tab) => {
+				const isSelected = tab === selectedTab;
+				const panel = document.getElementById(tab.getAttribute("aria-controls"));
+
+				tab.setAttribute("aria-selected", String(isSelected));
+				tab.tabIndex = isSelected ? 0 : -1;
+				panel.hidden = !isSelected;
+				panel.classList.toggle("is-active", isSelected);
+			});
+
+			if (moveFocus) selectedTab.focus();
+		}
+
+		tabs.forEach((tab, index) => {
+			tab.addEventListener("click", () => activateTab(tab));
+			tab.addEventListener("keydown", (event) => {
+				let nextIndex;
+
+				if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+				if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+				if (event.key === "Home") nextIndex = 0;
+				if (event.key === "End") nextIndex = tabs.length - 1;
+
+				if (nextIndex !== undefined) {
+					event.preventDefault();
+					activateTab(tabs[nextIndex], true);
+				}
+			});
+		});
+
+		async function loadNews() {
+			const newsGrid = document.querySelector("#news-grid");
+			const newsStatus = document.querySelector("#news-status");
+
+			try {
+				const response = await fetch("assets/news.json");
+				if (!response.ok) throw new Error("Die News-Datei ist nicht erreichbar.");
+
+				const news = await response.json();
+				if (!Array.isArray(news)) throw new Error("Das Format der News-Datei ist ungültig.");
+
+				const sortedNews = news
+					.filter((item) => item.date && !Number.isNaN(Date.parse(item.date)) && item.title && item.summary && item.image)
+					.sort((first, second) => Date.parse(second.date) - Date.parse(first.date));
+
+				if (sortedNews.length === 0) {
+					newsStatus.textContent = "Zurzeit sind keine Nachrichten verfügbar.";
+					return;
+				}
+
+				newsGrid.replaceChildren();
+				sortedNews.forEach((item) => {
+					const article = document.createElement("article");
+					article.className = "news-card";
+
+					const image = document.createElement("img");
+					image.src = item.image;
+					image.alt = item.imageAlt || "";
+					image.loading = "lazy";
+
+					const content = document.createElement("div");
+					content.className = "news-card-content";
+
+					const meta = document.createElement("div");
+					meta.className = "news-card-meta";
+
+					const date = document.createElement("time");
+					date.dateTime = item.date;
+					date.textContent = new Date(`${item.date}T00:00:00`).toLocaleDateString("de-DE", {
+						day: "2-digit",
+						month: "long",
+						year: "numeric"
+					});
+					meta.append(date);
+
+					if (item.example) {
+						const exampleLabel = document.createElement("span");
+						exampleLabel.className = "news-example";
+						exampleLabel.textContent = "Beispiel";
+						meta.append(exampleLabel);
+					}
+
+					const title = document.createElement("h2");
+					title.textContent = item.title;
+
+					const summary = document.createElement("p");
+					summary.textContent = item.summary;
+
+					content.append(meta, title, summary);
+					article.append(image, content);
+					newsGrid.append(article);
+				});
+
+				newsStatus.textContent = "";
+			} catch (error) {
+				newsStatus.dataset.state = "error";
+				newsStatus.textContent = "Die Nachrichten konnten nicht geladen werden. Bitte prüfe die Verbindung und versuche es später erneut.";
+				console.error("News konnten nicht geladen werden:", error);
+			}
+		}
+
+		loadNews();
+	</script>
+</body>
+</html>

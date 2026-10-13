@@ -1,0 +1,26 @@
+[
+	{
+		"date": "2026-10-10",
+		"title": "Ein neues Semester voller Ideen",
+		"summary": "Zum Semesterstart sammle ich neue Eindrücke, spannende Kurse und Themen, die ich hier nach und nach teilen möchte.",
+		"image": "https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80",
+		"imageAlt": "Universitätsgebäude auf einem Campus",
+		"example": true
+	},
+	{
+		"date": "2026-09-25",
+		"title": "Geodaten machen Muster sichtbar",
+		"summary": "Bei der Arbeit mit räumlichen Daten wird deutlich, wie Karten helfen, Zusammenhänge und Veränderungen besser zu verstehen.",
+		"image": "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=900&q=80",
+		"imageAlt": "Karte mit Wegen und geografischen Details",
+		"example": true
+	},
+	{
+		"date": "2026-09-12",
+		"title": "Webentwicklung für Kartenprojekte",
+		"summary": "Ich probiere aus, wie HTML, CSS und JavaScript Informationen ansprechend und übersichtlich ins Web bringen.",
+		"image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80",
+		"imageAlt": "Laptop mit Code auf dem Bildschirm",
+		"example": true
+	}
+]

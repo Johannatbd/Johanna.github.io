@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_61559cfa3040232038b6af90a3d1616b {
+                #map_445b0283fb5d884f81a5e52b161d2e08 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -54,14 +54,14 @@
 <body>
     
     
-            <div class="folium-map" id="map_61559cfa3040232038b6af90a3d1616b" ></div>
+            <div class="folium-map" id="map_445b0283fb5d884f81a5e52b161d2e08" ></div>
         
 </body>
 <script>
     
     
-            var map_61559cfa3040232038b6af90a3d1616b = L.map(
-                "map_61559cfa3040232038b6af90a3d1616b",
+            var map_445b0283fb5d884f81a5e52b161d2e08 = L.map(
+                "map_445b0283fb5d884f81a5e52b161d2e08",
                 {
                     center: [40.0, 45.0],
                     crs: L.CRS.EPSG3857,
@@ -78,7 +78,7 @@
 
         
     
-            var tile_layer_98403ff1ceb88b3e95d0186874069da1 = L.tileLayer(
+            var tile_layer_2c7a2d61c8db22c8d6cef42677982ec9 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -95,18 +95,18 @@
             );
         
     
-            tile_layer_98403ff1ceb88b3e95d0186874069da1.addTo(map_61559cfa3040232038b6af90a3d1616b);
+            tile_layer_2c7a2d61c8db22c8d6cef42677982ec9.addTo(map_445b0283fb5d884f81a5e52b161d2e08);
         
     
-            var tile_layer_edb3c7c0133318684e0a3d3970453ea5 = L.tileLayer(
-                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+            var tile_layer_ad796948b1f4ebd1dcd1e624e058b19c = L.tileLayer(
+                "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
-  "maxZoom": 20,
-  "maxNativeZoom": 20,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
   "noWrap": false,
-  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
-  "subdomains": "abcd",
+  "attribution": "\u00a9 OpenStreetMap contributors",
+  "subdomains": "abc",
   "detectRetina": false,
   "tms": false,
   "opacity": 1,
@@ -115,17 +115,17 @@
             );
         
     
-            tile_layer_edb3c7c0133318684e0a3d3970453ea5.addTo(map_61559cfa3040232038b6af90a3d1616b);
+            tile_layer_ad796948b1f4ebd1dcd1e624e058b19c.addTo(map_445b0283fb5d884f81a5e52b161d2e08);
         
     
-            var marker_04bca1eefac499b7fcf893ae58389cbc = L.marker(
+            var marker_ae768f4b96f59eb986aba21316458e32 = L.marker(
                 [50.0, 8.27],
                 {
 }
-            ).addTo(map_61559cfa3040232038b6af90a3d1616b);
+            ).addTo(map_445b0283fb5d884f81a5e52b161d2e08);
         
     
-            var icon_9e6c0f1f6e5708ece49bb5e8c57de0c0 = L.AwesomeMarkers.icon(
+            var icon_5d7532624263a2be48e8255d6df84916 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "blue",
   "iconColor": "white",
@@ -136,24 +136,24 @@
             );
         
     
-        var popup_41314f0705a2162eae25086aaa003be7 = L.popup({
+        var popup_334ab6bffe4ede655339808f60c8f258 = L.popup({
   "maxWidth": 250,
 });
 
         
             
-                var html_0a05a3b6456e05272b8b0eaf18e0e1c6 = $(`<div id="html_0a05a3b6456e05272b8b0eaf18e0e1c6" style="width: 100.0%; height: 100.0%;"><b>Mainz</b><br>Hier studiere ich Geoinformatik und Vermessung an der Hochschule Mainz.</div>`)[0];
-                popup_41314f0705a2162eae25086aaa003be7.setContent(html_0a05a3b6456e05272b8b0eaf18e0e1c6);
+                var html_cf31c82f13bba62f54df3a55c1a3e8c3 = $(`<div id="html_cf31c82f13bba62f54df3a55c1a3e8c3" style="width: 100.0%; height: 100.0%;"><b>Mainz</b><br>Hier studiere ich Geoinformatik und Vermessung an der Hochschule Mainz.</div>`)[0];
+                popup_334ab6bffe4ede655339808f60c8f258.setContent(html_cf31c82f13bba62f54df3a55c1a3e8c3);
             
         
 
-        marker_04bca1eefac499b7fcf893ae58389cbc.bindPopup(popup_41314f0705a2162eae25086aaa003be7)
+        marker_ae768f4b96f59eb986aba21316458e32.bindPopup(popup_334ab6bffe4ede655339808f60c8f258)
         ;
 
         
     
     
-            marker_04bca1eefac499b7fcf893ae58389cbc.bindTooltip(
+            marker_ae768f4b96f59eb986aba21316458e32.bindTooltip(
                 `<div>
                      Mainz
                  </div>`,
@@ -163,17 +163,17 @@
             );
         
     
-                marker_04bca1eefac499b7fcf893ae58389cbc.setIcon(icon_9e6c0f1f6e5708ece49bb5e8c57de0c0);
+                marker_ae768f4b96f59eb986aba21316458e32.setIcon(icon_5d7532624263a2be48e8255d6df84916);
             
     
-            var marker_49901b5af8d7c4e9afe7e5a7cf7a9097 = L.marker(
+            var marker_156feff7dc46e8aac238cec4fdef7c30 = L.marker(
                 [49.235, 7.0],
                 {
 }
-            ).addTo(map_61559cfa3040232038b6af90a3d1616b);
+            ).addTo(map_445b0283fb5d884f81a5e52b161d2e08);
         
     
-            var icon_9b36cf36dd6d7ec1390c3dd3776573c3 = L.AwesomeMarkers.icon(
+            var icon_17dfe0c44b7271777e2f043cf79c64ce = L.AwesomeMarkers.icon(
                 {
   "markerColor": "green",
   "iconColor": "white",
@@ -184,24 +184,24 @@
             );
         
     
-        var popup_955a8ecdaa2585b57eb834fe3269acda = L.popup({
+        var popup_e153e11332f5c021f1707560cbfa88cd = L.popup({
   "maxWidth": 250,
 });
 
         
             
-                var html_a545af337cd90155f7474fb69202269f = $(`<div id="html_a545af337cd90155f7474fb69202269f" style="width: 100.0%; height: 100.0%;"><b>Saarbrücken</b><br>Eine Stadt im Saarland.</div>`)[0];
-                popup_955a8ecdaa2585b57eb834fe3269acda.setContent(html_a545af337cd90155f7474fb69202269f);
+                var html_eddc48182b9a3ff5066abbbc098c3984 = $(`<div id="html_eddc48182b9a3ff5066abbbc098c3984" style="width: 100.0%; height: 100.0%;"><b>Saarbrücken</b><br>Eine Stadt im Saarland.</div>`)[0];
+                popup_e153e11332f5c021f1707560cbfa88cd.setContent(html_eddc48182b9a3ff5066abbbc098c3984);
             
         
 
-        marker_49901b5af8d7c4e9afe7e5a7cf7a9097.bindPopup(popup_955a8ecdaa2585b57eb834fe3269acda)
+        marker_156feff7dc46e8aac238cec4fdef7c30.bindPopup(popup_e153e11332f5c021f1707560cbfa88cd)
         ;
 
         
     
     
-            marker_49901b5af8d7c4e9afe7e5a7cf7a9097.bindTooltip(
+            marker_156feff7dc46e8aac238cec4fdef7c30.bindTooltip(
                 `<div>
                      Saarbrücken
                  </div>`,
@@ -211,17 +211,17 @@
             );
         
     
-                marker_49901b5af8d7c4e9afe7e5a7cf7a9097.setIcon(icon_9b36cf36dd6d7ec1390c3dd3776573c3);
+                marker_156feff7dc46e8aac238cec4fdef7c30.setIcon(icon_17dfe0c44b7271777e2f043cf79c64ce);
             
     
-            var marker_352b96554367f760c47fbb1ef7a4089a = L.marker(
+            var marker_fbccb65bf679fee6918ec6cfc727404e = L.marker(
                 [52.52, 13.405],
                 {
 }
-            ).addTo(map_61559cfa3040232038b6af90a3d1616b);
+            ).addTo(map_445b0283fb5d884f81a5e52b161d2e08);
         
     
-            var icon_0824bb6ae4ee895ef552392e16397227 = L.AwesomeMarkers.icon(
+            var icon_e0242e83cc4aef6c978e01c25aa02179 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -232,24 +232,24 @@
             );
         
     
-        var popup_d11bb5a1b6459a6fdd7322a5f4bba207 = L.popup({
+        var popup_4a0be3018becd56e793d32a0d47fbc00 = L.popup({
   "maxWidth": 250,
 });
 
         
             
-                var html_6ae38ca5c30302dc09c03111cd46d788 = $(`<div id="html_6ae38ca5c30302dc09c03111cd46d788" style="width: 100.0%; height: 100.0%;"><b>Berlin</b><br>Die Hauptstadt Deutschlands.</div>`)[0];
-                popup_d11bb5a1b6459a6fdd7322a5f4bba207.setContent(html_6ae38ca5c30302dc09c03111cd46d788);
+                var html_00b37f929c729c891db18d205ef917e1 = $(`<div id="html_00b37f929c729c891db18d205ef917e1" style="width: 100.0%; height: 100.0%;"><b>Berlin</b><br>Die Hauptstadt Deutschlands.</div>`)[0];
+                popup_4a0be3018becd56e793d32a0d47fbc00.setContent(html_00b37f929c729c891db18d205ef917e1);
             
         
 
-        marker_352b96554367f760c47fbb1ef7a4089a.bindPopup(popup_d11bb5a1b6459a6fdd7322a5f4bba207)
+        marker_fbccb65bf679fee6918ec6cfc727404e.bindPopup(popup_4a0be3018becd56e793d32a0d47fbc00)
         ;
 
         
     
     
-            marker_352b96554367f760c47fbb1ef7a4089a.bindTooltip(
+            marker_fbccb65bf679fee6918ec6cfc727404e.bindTooltip(
                 `<div>
                      Berlin
                  </div>`,
@@ -259,48 +259,48 @@
             );
         
     
-                marker_352b96554367f760c47fbb1ef7a4089a.setIcon(icon_0824bb6ae4ee895ef552392e16397227);
+                marker_fbccb65bf679fee6918ec6cfc727404e.setIcon(icon_e0242e83cc4aef6c978e01c25aa02179);
             
     
-            map_61559cfa3040232038b6af90a3d1616b.fitBounds(
+            map_445b0283fb5d884f81a5e52b161d2e08.fitBounds(
                 [[50.0, 8.27], [49.235, 7.0], [52.52, 13.405]],
                 {"padding": [20, 20]}
             );
         
     
-            var layer_control_af28a451d167b1d15fcde1c2d539b713_layers = {
+            var layer_control_e78b26963b8b3e627ae7789a772bc58d_layers = {
                 base_layers : {
-                    "openstreetmap" : tile_layer_98403ff1ceb88b3e95d0186874069da1,
-                    "Carto Light" : tile_layer_edb3c7c0133318684e0a3d3970453ea5,
+                    "openstreetmap" : tile_layer_2c7a2d61c8db22c8d6cef42677982ec9,
+                    "OSM-France" : tile_layer_ad796948b1f4ebd1dcd1e624e058b19c,
                 },
                 overlays :  {
                 },
             };
-            let layer_control_af28a451d167b1d15fcde1c2d539b713 = L.control.layers(
-                layer_control_af28a451d167b1d15fcde1c2d539b713_layers.base_layers,
-                layer_control_af28a451d167b1d15fcde1c2d539b713_layers.overlays,
+            let layer_control_e78b26963b8b3e627ae7789a772bc58d = L.control.layers(
+                layer_control_e78b26963b8b3e627ae7789a772bc58d_layers.base_layers,
+                layer_control_e78b26963b8b3e627ae7789a772bc58d_layers.overlays,
                 {
   "position": "topright",
   "collapsed": false,
   "autoZIndex": true,
 }
-            ).addTo(map_61559cfa3040232038b6af90a3d1616b);
+            ).addTo(map_445b0283fb5d884f81a5e52b161d2e08);
 
         
     
-            tile_layer_98403ff1ceb88b3e95d0186874069da1.addTo(map_61559cfa3040232038b6af90a3d1616b);
+            tile_layer_2c7a2d61c8db22c8d6cef42677982ec9.addTo(map_445b0283fb5d884f81a5e52b161d2e08);
         
     
-            tile_layer_edb3c7c0133318684e0a3d3970453ea5.addTo(map_61559cfa3040232038b6af90a3d1616b);
+            tile_layer_ad796948b1f4ebd1dcd1e624e058b19c.addTo(map_445b0283fb5d884f81a5e52b161d2e08);
         
     
-                marker_04bca1eefac499b7fcf893ae58389cbc.setIcon(icon_9e6c0f1f6e5708ece49bb5e8c57de0c0);
+                marker_ae768f4b96f59eb986aba21316458e32.setIcon(icon_5d7532624263a2be48e8255d6df84916);
             
     
-                marker_49901b5af8d7c4e9afe7e5a7cf7a9097.setIcon(icon_9b36cf36dd6d7ec1390c3dd3776573c3);
+                marker_156feff7dc46e8aac238cec4fdef7c30.setIcon(icon_17dfe0c44b7271777e2f043cf79c64ce);
             
     
-                marker_352b96554367f760c47fbb1ef7a4089a.setIcon(icon_0824bb6ae4ee895ef552392e16397227);
+                marker_fbccb65bf679fee6918ec6cfc727404e.setIcon(icon_e0242e83cc4aef6c978e01c25aa02179);
             
 </script>
 </html>

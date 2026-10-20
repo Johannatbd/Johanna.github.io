@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_62b6ea814053cfa5571cb1558f9bda2a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_62b6ea814053cfa5571cb1558f9bda2a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_62b6ea814053cfa5571cb1558f9bda2a = L.map(
+                "map_62b6ea814053cfa5571cb1558f9bda2a",
+                {
+                    center: [56.5, -4.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_1df31697e11b0694129154e9c73199c5 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_1df31697e11b0694129154e9c73199c5.addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var tile_layer_fbe3321645031b0b321c7fdc3dbcb052 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_fbe3321645031b0b321c7fdc3dbcb052.addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var poly_line_264a266aa2e5a42f051ceff7e1a359b8 = L.polyline(
+                [[55.9533, -3.1883], [55.8642, -4.2518], [56.8198, -5.1052]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            poly_line_264a266aa2e5a42f051ceff7e1a359b8.bindTooltip(
+                `<div>
+                     Meine Reiseroute durch Schottland
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_6d57b0ee5e0e3fbabdbf094480f631dc = L.marker(
+                [55.9533, -3.1883],
+                {
+}
+            ).addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var div_icon_e13bb4f639b046e97cbb286f0536a8e2 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:16px; font-weight:bold; color:blue;\"\u003e1\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_3a7e32e2b3ac9a39b6ce5f4b352aa3f1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fd7815da6d57e13b39b8b6d3ac9be7c5 = $(`<div id="html_fd7815da6d57e13b39b8b6d3ac9be7c5" style="width: 100.0%; height: 100.0%;"><b>Station 1</b><br>Edinburgh</div>`)[0];
+                popup_3a7e32e2b3ac9a39b6ce5f4b352aa3f1.setContent(html_fd7815da6d57e13b39b8b6d3ac9be7c5);
+            
+        
+
+        marker_6d57b0ee5e0e3fbabdbf094480f631dc.bindPopup(popup_3a7e32e2b3ac9a39b6ce5f4b352aa3f1)
+        ;
+
+        
+    
+    
+            marker_6d57b0ee5e0e3fbabdbf094480f631dc.bindTooltip(
+                `<div>
+                     Station 1: Edinburgh
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6d57b0ee5e0e3fbabdbf094480f631dc.setIcon(div_icon_e13bb4f639b046e97cbb286f0536a8e2);
+            
+    
+            var marker_a4114cd3144a6e79b0613019a6069f82 = L.marker(
+                [55.9533, -3.1883],
+                {
+}
+            ).addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var icon_542cb80b4ed6d88faf78f038e7a7f361 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bedad85ec4b0dceb87a9abeab0581d07 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b0833c8267526adaffffa82e8e51c138 = $(`<div id="html_b0833c8267526adaffffa82e8e51c138" style="width: 100.0%; height: 100.0%;"><b>Edinburgh</b><br>Station 1 meiner Schottlandreise</div>`)[0];
+                popup_bedad85ec4b0dceb87a9abeab0581d07.setContent(html_b0833c8267526adaffffa82e8e51c138);
+            
+        
+
+        marker_a4114cd3144a6e79b0613019a6069f82.bindPopup(popup_bedad85ec4b0dceb87a9abeab0581d07)
+        ;
+
+        
+    
+    
+            marker_a4114cd3144a6e79b0613019a6069f82.bindTooltip(
+                `<div>
+                     Edinburgh
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a4114cd3144a6e79b0613019a6069f82.setIcon(icon_542cb80b4ed6d88faf78f038e7a7f361);
+            
+    
+            var marker_95ce1b835b88c8a67abd6246d7826503 = L.marker(
+                [55.8642, -4.2518],
+                {
+}
+            ).addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var div_icon_46c6bfcb7eb79da962e92f112c61fe74 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:16px; font-weight:bold; color:blue;\"\u003e2\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_e2d2d5416c5f9cc6f8e9af47994c5377 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aca03e12d553b2161ed0748ebbb3072c = $(`<div id="html_aca03e12d553b2161ed0748ebbb3072c" style="width: 100.0%; height: 100.0%;"><b>Station 2</b><br>Glasgow</div>`)[0];
+                popup_e2d2d5416c5f9cc6f8e9af47994c5377.setContent(html_aca03e12d553b2161ed0748ebbb3072c);
+            
+        
+
+        marker_95ce1b835b88c8a67abd6246d7826503.bindPopup(popup_e2d2d5416c5f9cc6f8e9af47994c5377)
+        ;
+
+        
+    
+    
+            marker_95ce1b835b88c8a67abd6246d7826503.bindTooltip(
+                `<div>
+                     Station 2: Glasgow
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_95ce1b835b88c8a67abd6246d7826503.setIcon(div_icon_46c6bfcb7eb79da962e92f112c61fe74);
+            
+    
+            var marker_4050d26065214ef0b6163c5553d1e61e = L.marker(
+                [55.8642, -4.2518],
+                {
+}
+            ).addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var icon_a43dd58064f44fbb30c16ae57f61d1da = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b13438fce9acf6a0113f867365deb908 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_85dc4944afd94022fa6fdc5c8cce8b48 = $(`<div id="html_85dc4944afd94022fa6fdc5c8cce8b48" style="width: 100.0%; height: 100.0%;"><b>Glasgow</b><br>Station 2 meiner Schottlandreise</div>`)[0];
+                popup_b13438fce9acf6a0113f867365deb908.setContent(html_85dc4944afd94022fa6fdc5c8cce8b48);
+            
+        
+
+        marker_4050d26065214ef0b6163c5553d1e61e.bindPopup(popup_b13438fce9acf6a0113f867365deb908)
+        ;
+
+        
+    
+    
+            marker_4050d26065214ef0b6163c5553d1e61e.bindTooltip(
+                `<div>
+                     Glasgow
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4050d26065214ef0b6163c5553d1e61e.setIcon(icon_a43dd58064f44fbb30c16ae57f61d1da);
+            
+    
+            var marker_8574b4bf362c78c2dcef661a507f0611 = L.marker(
+                [56.8198, -5.1052],
+                {
+}
+            ).addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var div_icon_fb581b6a17f44c2b588b83f555e53924 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size:16px; font-weight:bold; color:blue;\"\u003e3\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+        var popup_829b043bbf6f1e5b3a16dc8e852f4e20 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5ed2dc490b492ac093382fc350553248 = $(`<div id="html_5ed2dc490b492ac093382fc350553248" style="width: 100.0%; height: 100.0%;"><b>Station 3</b><br>Fort William</div>`)[0];
+                popup_829b043bbf6f1e5b3a16dc8e852f4e20.setContent(html_5ed2dc490b492ac093382fc350553248);
+            
+        
+
+        marker_8574b4bf362c78c2dcef661a507f0611.bindPopup(popup_829b043bbf6f1e5b3a16dc8e852f4e20)
+        ;
+
+        
+    
+    
+            marker_8574b4bf362c78c2dcef661a507f0611.bindTooltip(
+                `<div>
+                     Station 3: Fort William
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8574b4bf362c78c2dcef661a507f0611.setIcon(div_icon_fb581b6a17f44c2b588b83f555e53924);
+            
+    
+            var marker_350c2ee02e24c3aad3bd405e5d421fab = L.marker(
+                [56.8198, -5.1052],
+                {
+}
+            ).addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            var icon_73fa2cd27c9e6af940e9be221fc382cc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2c824739a9dd5480b55d932f792be95a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4755beac42b83364503ae907db749be2 = $(`<div id="html_4755beac42b83364503ae907db749be2" style="width: 100.0%; height: 100.0%;"><b>Fort William</b><br>Station 3 meiner Schottlandreise</div>`)[0];
+                popup_2c824739a9dd5480b55d932f792be95a.setContent(html_4755beac42b83364503ae907db749be2);
+            
+        
+
+        marker_350c2ee02e24c3aad3bd405e5d421fab.bindPopup(popup_2c824739a9dd5480b55d932f792be95a)
+        ;
+
+        
+    
+    
+            marker_350c2ee02e24c3aad3bd405e5d421fab.bindTooltip(
+                `<div>
+                     Fort William
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_350c2ee02e24c3aad3bd405e5d421fab.setIcon(icon_73fa2cd27c9e6af940e9be221fc382cc);
+            
+    
+            tile_layer_1df31697e11b0694129154e9c73199c5.addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+            tile_layer_fbe3321645031b0b321c7fdc3dbcb052.addTo(map_62b6ea814053cfa5571cb1558f9bda2a);
+        
+    
+                marker_6d57b0ee5e0e3fbabdbf094480f631dc.setIcon(div_icon_e13bb4f639b046e97cbb286f0536a8e2);
+            
+    
+                marker_a4114cd3144a6e79b0613019a6069f82.setIcon(icon_542cb80b4ed6d88faf78f038e7a7f361);
+            
+    
+                marker_95ce1b835b88c8a67abd6246d7826503.setIcon(div_icon_46c6bfcb7eb79da962e92f112c61fe74);
+            
+    
+                marker_4050d26065214ef0b6163c5553d1e61e.setIcon(icon_a43dd58064f44fbb30c16ae57f61d1da);
+            
+    
+                marker_8574b4bf362c78c2dcef661a507f0611.setIcon(div_icon_fb581b6a17f44c2b588b83f555e53924);
+            
+    
+                marker_350c2ee02e24c3aad3bd405e5d421fab.setIcon(icon_73fa2cd27c9e6af940e9be221fc382cc);
+            
+</script>
+</html>

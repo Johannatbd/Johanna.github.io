@@ -377,6 +377,46 @@
 			font-weight: 700;
 		}
 
+		.webmap-section { padding-top: clamp(2.5rem, 6vw, 4rem); }
+
+		.webmap-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1.25rem;
+		}
+
+		.webmap-card {
+			min-width: 0;
+			overflow: hidden;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+			box-shadow: var(--card-shadow);
+		}
+
+		.webmap-card-copy { padding: 1.15rem 1.25rem 0.95rem; }
+
+		.webmap-card-copy h3 {
+			margin-bottom: 0.4rem;
+			font-size: 1.08rem;
+			line-height: 1.35;
+		}
+
+		.webmap-card-copy p {
+			margin-bottom: 0;
+			color: var(--muted);
+			font-size: 0.9rem;
+		}
+
+		.webmap-frame {
+			display: block;
+			width: 100%;
+			height: clamp(440px, 42vw, 560px);
+			border: 0;
+			border-top: 1px solid var(--line);
+			background: #e8ede8;
+		}
+
 		.news-grid {
 			display: grid;
 			grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -500,6 +540,8 @@
 			.study-table th, .study-table td { padding: 0.8rem 0.65rem; }
 			.section-heading { align-items: start; flex-direction: column; }
 			.gallery { grid-template-columns: 1fr; }
+			.webmap-grid { grid-template-columns: 1fr; }
+			.webmap-frame { height: clamp(460px, 70svh, 620px); }
 			.news-grid { grid-template-columns: 1fr; }
 			.gallery-card { display: grid; grid-template-columns: minmax(110px, 0.8fr) 1.2fr; }
 			.gallery-card img { height: 100%; min-height: 150px; aspect-ratio: auto; }
@@ -612,7 +654,7 @@
 					<p class="eyebrow">Weiterklicken</p>
 					<h2 id="gallery-title">Orte & Ideen</h2>
 				</div>
-				<p class="section-note">Drei Anlaufstellen, die meine Arbeit mit Karten und räumlichen Daten begleiten.</p>
+				<p class="section-note">Anlaufstellen und Projekte, die meine Arbeit mit Karten und räumlichen Daten begleiten.</p>
 			</div>
 			<div class="gallery">
 				<a class="gallery-card" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">
@@ -639,6 +681,65 @@
 						<span>earthobservatory.nasa.gov ↗</span>
 					</div>
 				</a>
+			</div>
+		</section>
+
+		<section class="webmap-section" aria-labelledby="webmap-title">
+			<div class="section-heading">
+				<div>
+					<p class="eyebrow">Geoinformatik-Übung 3</p>
+					<h2 id="webmap-title">Interaktive Webkarten – Übung 3</h2>
+				</div>
+				<p class="section-note">Interaktive Karten und 3D-Visualisierungen direkt im Projects-Tab.</p>
+			</div>
+			<div class="webmap-grid">
+				<article class="webmap-card">
+					<div class="webmap-card-copy">
+						<h3>01 – Basiskarte</h3>
+						<p>Eine interaktive Basiskarte als räumliche Grundlage für die weiteren Kartendarstellungen.</p>
+					</div>
+					<iframe class="webmap-frame" src="../Uebung3/maps/map_1_basiskarte.html" title="Interaktive Basiskarte" loading="lazy" allowfullscreen></iframe>
+				</article>
+
+				<article class="webmap-card">
+					<div class="webmap-card-copy">
+						<h3>02 – Punkte und Marker</h3>
+						<p>Interaktive Punkte und Marker verorten ausgewählte Orte direkt auf der Karte.</p>
+					</div>
+					<iframe class="webmap-frame" src="../Uebung3/maps/map_2_punkte.html" title="Interaktive Karte mit Punkten und Markern" loading="lazy" allowfullscreen></iframe>
+				</article>
+
+				<article class="webmap-card">
+					<div class="webmap-card-copy">
+						<h3>03 – Reiseroute</h3>
+						<p>Eine Polyline zeigt den Verlauf der Reiseroute und verbindet die Stationen.</p>
+					</div>
+					<iframe class="webmap-frame" src="../Uebung3/maps/map_3_reiseroute.html" title="Interaktive Karte mit Reiseroute" loading="lazy" allowfullscreen></iframe>
+				</article>
+
+				<article class="webmap-card">
+					<div class="webmap-card-copy">
+						<h3>04 – GeoJSON-Flächen</h3>
+						<p>GeoJSON-Polygone machen Flächen und ihre räumlichen Abgrenzungen sichtbar.</p>
+					</div>
+					<iframe class="webmap-frame" src="../Uebung3/maps/map_4_flaechen_online.html" title="Interaktive Karte mit GeoJSON-Flächen" loading="lazy" allowfullscreen></iframe>
+				</article>
+
+				<article class="webmap-card">
+					<div class="webmap-card-copy">
+						<h3>05 – 3D-Gebäude mit Cesium</h3>
+						<p>Eine interaktive 3D-Ansicht amtlicher Gebäudedaten für Mainz mit CesiumJS und basemap.de.</p>
+					</div>
+					<iframe class="webmap-frame" src="../Uebung3/cesium_3d.html" title="Interaktive 3D-Gebäudekarte von Mainz mit Cesium" loading="lazy" allowfullscreen></iframe>
+				</article>
+
+				<article class="webmap-card">
+					<div class="webmap-card-copy">
+						<h3>06 – Interaktive 3D-Modellstadt mit Three.js</h3>
+						<p>Eine schematische Modellstadt mit Straßen, Grünflächen und Gebäuden, die sich interaktiv drehen und zoomen lässt.</p>
+					</div>
+					<iframe class="webmap-frame" src="../Uebung3/threejs_3d.html" title="Interaktive 3D-Modellstadt mit Three.js" loading="lazy" allowfullscreen></iframe>
+				</article>
 			</div>
 		</section>
 		</div>

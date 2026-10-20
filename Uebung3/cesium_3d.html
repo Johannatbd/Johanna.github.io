@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#f5f6f2">
+	<meta name="description" content="Interaktive 3D-Ansicht der amtlichen LoD2-Gebäude Deutschlands in Mainz mit CesiumJS und basemap.de.">
+	<title>3D-Gebäude Mainz | Geoinformatik-Übung 3</title>
+	<link rel="stylesheet" href="https://cesium.com/downloads/cesiumjs/releases/1.137/Build/Cesium/Widgets/widgets.css">
+	<style>
+		:root {
+			color-scheme: light;
+			--paper: #f5f6f2;
+			--surface: rgba(255, 255, 255, 0.94);
+			--ink: #1d2924;
+			--muted: #58645e;
+			--line: #d8ded8;
+			--green: #104b35;
+			--coral: #c95843;
+			--shadow: 0 12px 32px rgba(29, 41, 36, 0.16);
+		}
+
+		* { box-sizing: border-box; }
+
+		html, body {
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			overflow: hidden;
+		}
+
+		body {
+			background: var(--paper);
+			color: var(--ink);
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		}
+
+		a { color: var(--green); }
+
+		a:focus-visible, button:focus-visible {
+			outline: 3px solid var(--coral);
+			outline-offset: 3px;
+		}
+
+		#cesiumContainer {
+			position: fixed;
+			inset: 0;
+			background: #dce5e5;
+		}
+
+		.topbar {
+			position: fixed;
+			z-index: 2;
+			top: max(1rem, env(safe-area-inset-top));
+			left: max(1rem, env(safe-area-inset-left));
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+			width: calc(100% - 2rem);
+			pointer-events: none;
+		}
+
+		.brand, .back-link {
+			pointer-events: auto;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--surface);
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(10px);
+		}
+
+		.brand { padding: 0.7rem 1rem; }
+
+		.brand strong {
+			display: block;
+			font-size: 0.98rem;
+			line-height: 1.35;
+		}
+
+		.brand span {
+			color: var(--muted);
+			font-size: 0.8rem;
+		}
+
+		.back-link {
+			padding: 0.65rem 0.9rem;
+			font-size: 0.88rem;
+			font-weight: 700;
+			text-decoration: none;
+			transition: border-color 160ms ease;
+		}
+
+		.back-link:hover { border-color: var(--green); }
+
+		.info-card {
+			position: fixed;
+			z-index: 2;
+			bottom: max(1rem, env(safe-area-inset-bottom));
+			left: max(1rem, env(safe-area-inset-left));
+			width: min(410px, calc(100% - 2rem));
+			padding: 1rem 1.1rem;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			background: var(--surface);
+			box-shadow: var(--shadow);
+			backdrop-filter: blur(10px);
+		}
+
+		.status {
+			display: flex;
+			align-items: flex-start;
+			gap: 0.65rem;
+			margin: 0;
+			font-size: 0.92rem;
+			font-weight: 650;
+			line-height: 1.5;
+		}
+
+		.status::before {
+			flex: 0 0 auto;
+			width: 0.65rem;
+			height: 0.65rem;
+			margin-top: 0.35rem;
+			border-radius: 50%;
+			background: #d39b36;
+			content: "";
+		}
+
+		.status[data-state="ready"]::before { background: #23855d; }
+
+		.status[data-state="error"] { color: #8b3025; }
+
+		.status[data-state="error"]::before { background: #bc4939; }
+
+		.retry-button {
+			margin: 0.75rem 0 0 1.3rem;
+			padding: 0.5rem 0.75rem;
+			border: 1px solid var(--line);
+			border-radius: 8px;
+			background: white;
+			color: var(--green);
+			font: inherit;
+			font-size: 0.85rem;
+			font-weight: 700;
+			cursor: pointer;
+		}
+
+		.retry-button:hover { border-color: var(--green); }
+
+		.retry-button[hidden] { display: none; }
+
+		.source {
+			margin: 0.75rem 0 0;
+			padding-top: 0.65rem;
+			border-top: 1px solid var(--line);
+			color: var(--muted);
+			font-size: 0.78rem;
+			line-height: 1.5;
+		}
+
+		@media (max-width: 600px) {
+			.topbar {
+				top: max(0.65rem, env(safe-area-inset-top));
+				left: max(0.65rem, env(safe-area-inset-left));
+				width: calc(100% - 1.3rem);
+				gap: 0.5rem;
+			}
+
+			.brand {
+				min-width: 0;
+				padding: 0.6rem 0.7rem;
+			}
+
+			.brand strong { font-size: 0.88rem; }
+
+			.brand span { font-size: 0.72rem; }
+
+			.back-link {
+				padding: 0.55rem 0.65rem;
+				font-size: 0.78rem;
+				white-space: nowrap;
+			}
+
+			.info-card {
+				bottom: max(0.65rem, env(safe-area-inset-bottom));
+				left: max(0.65rem, env(safe-area-inset-left));
+				width: calc(100% - 1.3rem);
+				padding: 0.8rem 0.9rem;
+			}
+
+			.status { font-size: 0.85rem; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { transition-duration: 0.01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<div id="cesiumContainer" role="application" aria-label="Interaktive 3D-Karte der Gebäude in Mainz"></div>
+
+	<header class="topbar">
+		<div class="brand">
+			<strong>3D-Gebäude · Mainz</strong>
+			<span>Geoinformatik-Übung 3 · Johanna</span>
+		</div>
+		<a class="back-link" href="index.html">← Zur Übungsübersicht</a>
+	</header>
+
+	<aside class="info-card" aria-label="Ladezustand und Datenquelle">
+		<p id="loadStatus" class="status" data-state="loading" role="status" aria-live="polite">3D-Gebäude werden geladen …</p>
+		<button id="retryButton" class="retry-button" type="button" hidden>Erneut versuchen</button>
+		<p class="source">
+			Gebäude und Hintergrund: <a href="https://basemap.de/produkte-und-dienste/3d/" target="_blank" rel="noopener noreferrer">basemap.de</a> · © GeoBasis-DE / BKG.
+		</p>
+	</aside>
+
+	<script>
+		const tilesetUrl = "https://sgx.geodatenzentrum.de/gdz_basemapde_3d_gebaeude/lod2_4326_null.json";
+		const loadStatus = document.getElementById("loadStatus");
+		const retryButton = document.getElementById("retryButton");
+		let viewer;
+		let tileset;
+		let loading = false;
+
+		function showError(message) {
+			loadStatus.textContent = message;
+			loadStatus.dataset.state = "error";
+			loadStatus.setAttribute("role", "alert");
+			retryButton.hidden = false;
+		}
+
+		function loadCesium() {
+			return new Promise((resolve, reject) => {
+				const script = document.createElement("script");
+				script.src = "https://cesium.com/downloads/cesiumjs/releases/1.137/Build/Cesium/Cesium.js";
+				script.onload = resolve;
+				script.onerror = () => reject(new Error("CesiumJS konnte nicht vom CDN geladen werden."));
+				document.head.append(script);
+			});
+		}
+
+		async function startMap() {
+			if (loading) return;
+			loading = true;
+			retryButton.hidden = true;
+			loadStatus.textContent = "3D-Gebäude werden geladen …";
+			loadStatus.dataset.state = "loading";
+			loadStatus.setAttribute("role", "status");
+
+			try {
+				if (tileset && viewer) {
+					viewer.scene.primitives.remove(tileset);
+					tileset = undefined;
+				}
+
+				if (!window.Cesium) await loadCesium();
+
+				if (!viewer) {
+					viewer = new Cesium.Viewer("cesiumContainer", {
+						baseLayer: false,
+						animation: false,
+						baseLayerPicker: false,
+						geocoder: false,
+						homeButton: false,
+						infoBox: false,
+						navigationHelpButton: false,
+						sceneModePicker: false,
+						selectionIndicator: false,
+						timeline: false,
+						fullscreenButton: false,
+						vrButton: false,
+						shadows: false
+					});
+
+					const basemap = new Cesium.WebMapServiceImageryProvider({
+						url: "https://sgx.geodatenzentrum.de/wms_basemapde",
+						layers: "de_basemapde_web_raster_farbe",
+						parameters: {
+							format: "image/png",
+							transparent: false,
+							version: "1.3.0"
+						},
+						credit: new Cesium.Credit(
+							'<a href="https://basemap.de/produkte-und-dienste/" target="_blank" rel="noopener noreferrer">basemap.de · © GeoBasis-DE / BKG</a>',
+							true
+						)
+					});
+					viewer.imageryLayers.addImageryProvider(basemap);
+					viewer.camera.setView({
+						destination: Cesium.Cartesian3.fromDegrees(8.2473, 49.9929, 1100),
+						orientation: {
+							heading: Cesium.Math.toRadians(-15),
+							pitch: Cesium.Math.toRadians(-58),
+							roll: 0
+						}
+					});
+				}
+
+				tileset = await Cesium.Cesium3DTileset.fromUrl(tilesetUrl);
+				tileset.initialTilesLoaded.addEventListener(() => {
+					if (loadStatus.dataset.state !== "loading") return;
+					loadStatus.textContent = "Amtliche 3D-Gebäudedaten für Mainz geladen.";
+					loadStatus.dataset.state = "ready";
+				});
+				tileset.tileFailed.addEventListener((event) => {
+					console.error("Eine 3D-Gebäudekachel konnte nicht geladen werden:", event);
+					if (loadStatus.dataset.state === "loading") {
+						showError("Die 3D-Gebäudedaten konnten nicht vollständig geladen werden. Prüfe die Verbindung zum Gebäudedienst.");
+					}
+				});
+				viewer.scene.primitives.add(tileset);
+				loadStatus.textContent = "Verbindung zum Gebäudedienst hergestellt; 3D-Kacheln werden geladen …";
+			} catch (error) {
+				console.error("Die Cesium-3D-Karte konnte nicht geladen werden:", error);
+				showError("Die 3D-Gebäude konnten nicht geladen werden. Prüfe deine Internetverbindung oder die Erreichbarkeit des Gebäudedienstes.");
+			} finally {
+				loading = false;
+			}
+		}
+
+		retryButton.addEventListener("click", startMap);
+		startMap();
+	</script>
+</body>
+</html>

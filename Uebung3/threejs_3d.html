@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="theme-color" content="#f5f6f2">
+	<meta name="description" content="Schematische, interaktive 3D-Modellstadt mit Three.js, eigens für die Geoinformatik-Übung 3 erstellt.">
+	<title>3D-Modellstadt mit Three.js · Geoinformatik-Übung 3</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--paper: #f5f6f2;
+			--surface: rgba(255, 255, 255, 0.94);
+			--ink: #1d2924;
+			--muted: #58645e;
+			--line: #d8ded8;
+			--green: #104b35;
+			--coral: #c95843;
+			--shadow: 0 12px 32px rgba(29, 41, 36, 0.14);
+		}
+
+		* { box-sizing: border-box; }
+
+		html, body {
+			width: 100%;
+			min-height: 100%;
+			margin: 0;
+		}
+
+		body {
+			background: var(--paper);
+			color: var(--ink);
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		}
+
+		a, button { -webkit-tap-highlight-color: transparent; }
+		a { color: var(--green); }
+
+		a:focus-visible, button:focus-visible {
+			outline: 3px solid var(--coral);
+			outline-offset: 3px;
+		}
+
+		.page-shell {
+			width: min(calc(100% - 2.5rem), 1280px);
+			margin-inline: auto;
+		}
+
+		header {
+			padding-block: 1.25rem;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.topline {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		.brand {
+			color: var(--ink);
+			font-size: 0.95rem;
+			font-weight: 750;
+			text-decoration: none;
+		}
+
+		.course {
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.88rem;
+			text-align: right;
+		}
+
+		main { padding-block: clamp(1.5rem, 4vw, 3rem); }
+
+		.intro { margin-bottom: 1.35rem; }
+
+		.eyebrow {
+			margin: 0 0 0.55rem;
+			color: var(--green);
+			font-size: 0.76rem;
+			font-weight: 750;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			margin: 0 0 0.65rem;
+			font-size: clamp(1.9rem, 4.6vw, 3.5rem);
+			line-height: 1.08;
+			letter-spacing: -0.04em;
+		}
+
+		.intro-copy {
+			max-width: 76ch;
+			margin: 0;
+			color: var(--muted);
+			font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+		}
+
+		.notice {
+			display: flex;
+			align-items: flex-start;
+			gap: 0.65rem;
+			margin-top: 0.9rem;
+			padding: 0.7rem 0.9rem;
+			border: 1px solid #d7e5da;
+			border-radius: 10px;
+			background: #eef5ee;
+			color: #344a3d;
+			font-size: 0.88rem;
+		}
+
+		.notice p { margin: 0; }
+		.notice strong { color: #233e2e; }
+
+		.stage {
+			position: relative;
+			height: min(68vh, 760px);
+			min-height: 430px;
+			overflow: hidden;
+			border: 1px solid var(--line);
+			border-radius: 18px;
+			background: linear-gradient(160deg, #e5efed, #d4e2df);
+			box-shadow: var(--shadow);
+			isolation: isolate;
+		}
+
+		#cityCanvas {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			touch-action: none;
+		}
+
+		#cityCanvas canvas {
+			display: block;
+			width: 100%;
+			height: 100%;
+			touch-action: none;
+		}
+
+		.stage-label, .stage-hint, .stage-status {
+			position: absolute;
+			z-index: 1;
+			border: 1px solid rgba(216, 222, 216, 0.85);
+			border-radius: 10px;
+			background: var(--surface);
+			box-shadow: 0 5px 20px rgba(29, 41, 36, 0.1);
+			backdrop-filter: blur(8px);
+		}
+
+		.stage-label {
+			top: 1rem;
+			left: 1rem;
+			padding: 0.6rem 0.8rem;
+			font-size: 0.82rem;
+			font-weight: 700;
+		}
+
+		.stage-hint {
+			right: 1rem;
+			bottom: 1rem;
+			max-width: min(380px, calc(100% - 2rem));
+			padding: 0.6rem 0.8rem;
+			color: var(--muted);
+			font-size: 0.8rem;
+		}
+
+		.stage-status {
+			top: 1rem;
+			right: 1rem;
+			max-width: min(390px, calc(100% - 2rem));
+			padding: 0.6rem 0.8rem;
+			color: var(--muted);
+			font-size: 0.82rem;
+		}
+
+		.stage-status[hidden] { display: none; }
+
+		@media (max-width: 600px) {
+			.page-shell { width: min(calc(100% - 1.25rem), 1280px); }
+
+			header { padding-block: 0.85rem; }
+
+			.topline {
+				align-items: flex-start;
+				flex-direction: column;
+				gap: 0.25rem;
+			}
+
+			.course { text-align: left; }
+			main { padding-block: 1.35rem; }
+			.intro { margin-bottom: 1rem; }
+
+			.notice {
+				margin-top: 0.7rem;
+				padding: 0.65rem 0.75rem;
+				font-size: 0.82rem;
+			}
+
+			.stage {
+				height: 64svh;
+				min-height: 400px;
+				max-height: 700px;
+				border-radius: 13px;
+			}
+
+			.stage-label {
+				top: 0.65rem;
+				left: 0.65rem;
+			}
+
+			.stage-status {
+				top: 0.65rem;
+				right: 0.65rem;
+				max-width: calc(100% - 1.3rem);
+				font-size: 0.76rem;
+			}
+
+			.stage-hint {
+				right: 0.65rem;
+				bottom: 0.65rem;
+				max-width: calc(100% - 1.3rem);
+				font-size: 0.74rem;
+			}
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; }
+		}
+	</style>
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+				"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+			}
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<div class="page-shell topline">
+			<a class="brand" href="index.html">Johanna · Geoinformatik</a>
+			<p class="course">Geoinformatik und Vermessung · 5. Semester · Hochschule Mainz · Prof. Dr. Yu Feng</p>
+		</div>
+	</header>
+
+	<main class="page-shell">
+		<section class="intro" aria-labelledby="page-title">
+			<p class="eyebrow">Geoinformatik-Übung 3 · Three.js</p>
+			<h1 id="page-title">Interaktive 3D-Modellstadt mit Three.js</h1>
+			<p class="intro-copy">Entdecke eine kleine Stadt aus Straßen, Grünflächen und Gebäuden unterschiedlicher Höhe. Drehe die Ansicht, um die Modellstadt aus verschiedenen Perspektiven zu erkunden.</p>
+			<aside class="notice" aria-label="Hinweis zu den Modelldaten">
+				<p><strong>Schematische Darstellung:</strong> Gebäude und Straßen sind geometrisch erzeugte Modelle und stellen keine echten Geodaten oder eine reale Stadt dar.</p>
+			</aside>
+		</section>
+
+		<section class="stage" aria-label="Interaktive 3D-Modellstadt">
+			<div id="cityCanvas" role="img" aria-label="Drehbare 3D-Modellstadt mit schematischen Gebäuden, Straßen und Grünflächen"></div>
+			<div class="stage-label" aria-hidden="true">Modellstadt · schematisch</div>
+			<p id="stageStatus" class="stage-status" role="status" aria-live="polite">3D-Stadt wird geladen …</p>
+			<div class="stage-hint">Maus ziehen zum Drehen · Scrollrad zum Zoomen · Rechts ziehen zum Verschieben · Touch-Gesten werden unterstützt</div>
+		</section>
+	</main>
+
+	<script type="module">
+		const status = document.getElementById("stageStatus");
+		const container = document.getElementById("cityCanvas");
+
+		try {
+			const THREE = await import("three");
+			const { OrbitControls } = await import("three/addons/controls/OrbitControls.js");
+
+			const scene = new THREE.Scene();
+			scene.background = new THREE.Color("#dce9e8");
+			scene.fog = new THREE.Fog("#dce9e8", 200, 380);
+
+			const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 400);
+			camera.position.set(86, 82, 104);
+
+			const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+			renderer.shadowMap.enabled = true;
+			renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+			renderer.outputColorSpace = THREE.SRGBColorSpace;
+			renderer.toneMapping = THREE.ACESFilmicToneMapping;
+			renderer.toneMappingExposure = 1.18;
+			renderer.domElement.setAttribute("aria-hidden", "true");
+			container.append(renderer.domElement);
+
+			const controls = new OrbitControls(camera, renderer.domElement);
+			controls.target.set(0, 0, 0);
+			controls.enableDamping = true;
+			controls.dampingFactor = 0.06;
+			controls.minDistance = 25;
+			controls.maxDistance = 320;
+			controls.maxPolarAngle = Math.PI * 0.48;
+			controls.update();
+			let hasInteracted = false;
+			controls.addEventListener("start", () => {
+				hasInteracted = true;
+			});
+
+			scene.add(new THREE.HemisphereLight("#f5fbff", "#87967c", 2.05));
+
+			const sunlight = new THREE.DirectionalLight("#fff1d9", 3.3);
+			sunlight.position.set(-48, 82, 42);
+			sunlight.castShadow = true;
+			sunlight.shadow.mapSize.set(2048, 2048);
+			sunlight.shadow.camera.left = -75;
+			sunlight.shadow.camera.right = 75;
+			sunlight.shadow.camera.top = 75;
+			sunlight.shadow.camera.bottom = -75;
+			sunlight.shadow.camera.near = 1;
+			sunlight.shadow.camera.far = 200;
+			sunlight.shadow.normalBias = 0.035;
+			sunlight.shadow.bias = -0.00012;
+			scene.add(sunlight);
+
+			const materials = {
+				ground: new THREE.MeshStandardMaterial({ color: "#b7c6a5", roughness: 1 }),
+				park: new THREE.MeshStandardMaterial({ color: "#8fad82", roughness: 1 }),
+				parkAccent: new THREE.MeshStandardMaterial({ color: "#a7bc91", roughness: 1 }),
+				road: new THREE.MeshStandardMaterial({ color: "#646b69", roughness: 0.96 }),
+				sidewalk: new THREE.MeshStandardMaterial({ color: "#c9c8bb", roughness: 1 }),
+				line: new THREE.MeshStandardMaterial({ color: "#eee8cf", roughness: 0.85 }),
+				lot: new THREE.MeshStandardMaterial({ color: "#d2d2bf", roughness: 1 })
+			};
+
+			const buildingPalette = ["#e6d7c0", "#d8e2df", "#dbc8bd", "#d7dcc7", "#d1d7e0", "#e9dfc9"];
+
+			function addBox(parent, width, height, depth, x, y, z, material, castShadow = true) {
+				const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
+				mesh.position.set(x, y + height / 2, z);
+				mesh.castShadow = castShadow;
+				mesh.receiveShadow = true;
+				parent.add(mesh);
+				return mesh;
+			}
+
+			addBox(scene, 112, 0.8, 112, 0, -0.8, 0, materials.ground, false);
+
+			const city = new THREE.Group();
+			scene.add(city);
+			const roadPositions = [-45, -15, 15, 45];
+			const roadWidth = 6;
+
+			for (const position of roadPositions) {
+				addBox(city, roadWidth, 0.12, 108, position, 0, 0, materials.road, false);
+				addBox(city, 108, 0.12, roadWidth, 0, 0, position, materials.road, false);
+
+				for (const edge of [-1, 1]) {
+					addBox(city, 0.65, 0.16, 108, position + edge * (roadWidth / 2 + 0.45), 0, 0, materials.sidewalk, false);
+					addBox(city, 108, 0.16, 0.65, 0, 0, position + edge * (roadWidth / 2 + 0.45), materials.sidewalk, false);
+				}
+
+				for (let dash = -49; dash <= 49; dash += 8) {
+					addBox(city, 0.16, 0.025, 3.2, position, 0.13, dash, materials.line, false);
+					addBox(city, 3.2, 0.025, 0.16, dash, 0.13, position, materials.line, false);
+				}
+			}
+
+			const parks = [
+				{ x: -30, z: 0, width: 18, depth: 18 },
+				{ x: 30, z: 30, width: 20, depth: 20 },
+				{ x: 0, z: -30, width: 17, depth: 15 }
+			];
+
+			for (const park of parks) {
+				addBox(city, park.width, 0.08, park.depth, park.x, 0, park.z, materials.park, false);
+				addBox(city, 0.55, 0.1, park.depth, park.x, 0.04, park.z, materials.parkAccent, false);
+			}
+
+			let seed = 27;
+			function random() {
+				seed = (seed * 1664525 + 1013904223) % 4294967296;
+				return seed / 4294967296;
+			}
+
+			const blockCenters = [-30, 0, 30];
+			let buildingIndex = 0;
+
+			for (const blockX of blockCenters) {
+				for (const blockZ of blockCenters) {
+					const isPark = parks.some(park => park.x === blockX && park.z === blockZ);
+					if (isPark) continue;
+
+					const count = 3 + Math.floor(random() * 3);
+					for (let building = 0; building < count; building += 1) {
+						const width = 5.5 + random() * 5;
+						const depth = 5.5 + random() * 5;
+						const x = blockX + (random() - 0.5) * 13;
+						const z = blockZ + (random() - 0.5) * 13;
+						const floors = 2 + Math.floor(random() * 9);
+						const height = 2.6 + floors * 1.55;
+						const color = buildingPalette[buildingIndex % buildingPalette.length];
+						const wall = new THREE.MeshStandardMaterial({ color, roughness: 0.86 });
+						const roof = new THREE.MeshStandardMaterial({ color: "#8c8a80", roughness: 0.92 });
+
+						addBox(city, width + 0.8, 0.18, depth + 0.8, x, 0.12, z, materials.lot, false);
+						addBox(city, width, height, depth, x, 0.3, z, wall);
+						addBox(city, width + 0.15, 0.3, depth + 0.15, x, height + 0.3, z, roof);
+
+						if (buildingIndex % 4 === 1) {
+							addBox(city, width * 0.34, 0.65, depth * 0.32, x, height + 0.6, z, roof);
+						}
+						buildingIndex += 1;
+					}
+				}
+			}
+
+			function resize() {
+				const width = container.clientWidth;
+				const height = container.clientHeight;
+				if (!width || !height) return;
+				camera.aspect = width / height;
+				camera.updateProjectionMatrix();
+				if (!hasInteracted) {
+					camera.position.set(86, 82, 104).multiplyScalar(Math.max(1, 1 / camera.aspect));
+					controls.update();
+				}
+				renderer.setSize(width, height, false);
+			}
+
+			const resizeObserver = new ResizeObserver(resize);
+			resizeObserver.observe(container);
+			resize();
+			window.addEventListener("pagehide", () => {
+				resizeObserver.disconnect();
+				controls.dispose();
+				renderer.dispose();
+			}, { once: true });
+
+			function animate() {
+				controls.update();
+				renderer.render(scene, camera);
+			}
+
+			renderer.setAnimationLoop(animate);
+			status.hidden = true;
+		} catch (error) {
+			console.error("Die Three.js-Modellstadt konnte nicht geladen werden:", error);
+			status.textContent = "Die 3D-Modellstadt konnte nicht geladen werden. Prüfe deine Internetverbindung und öffne die Seite über Live Server.";
+		}
+	</script>
+</body>
+</html>

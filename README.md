@@ -21,7 +21,7 @@ Erweiterung der bestehenden Webseite um folgende Funktionen:
 - Responsives Design für Smartphones und Computer
 
 **Live-Webseite Übung 2:**
-[https://johannatbd.github.io/Johanna.github.io/%C3%9Cbung%202/](https://johannatbd.github.io/Johanna.github.io/%C3%9Cbung%202/)
+[https://johannatbd.github.io/Johanna.github.io/Uebung%202/](https://johannatbd.github.io/Johanna.github.io/Uebung%202/)
 
 ## Übung 3 – Interaktive Webkarten mit APIs und SDKs
 
@@ -37,4 +37,4 @@ Die Übung umfasst:
 [https://johannatbd.github.io/Johanna.github.io/Uebung3/](https://johannatbd.github.io/Johanna.github.io/Uebung3/)
 
 **Persönliche Webseite mit integriertem Projects-Bereich:**
-[https://johannatbd.github.io/Johanna.github.io/%C3%9Cbung%202/](https://johannatbd.github.io/Johanna.github.io/%C3%9Cbung%202/)
+[https://johannatbd.github.io/Johanna.github.io/Uebung%202/](https://johannatbd.github.io/Johanna.github.io/Uebung%202/)

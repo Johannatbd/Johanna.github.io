@@ -223,12 +223,21 @@
 		let viewer;
 		let tileset;
 		let loading = false;
+		let initialTilesLoaded = false;
+		let visibleBuildingTiles = false;
 
 		function showError(message) {
 			loadStatus.textContent = message;
 			loadStatus.dataset.state = "error";
 			loadStatus.setAttribute("role", "alert");
 			retryButton.hidden = false;
+		}
+
+		function updateLoadedStatus() {
+			if (!initialTilesLoaded || !visibleBuildingTiles) return;
+			loadStatus.textContent = "3D-Gebäude geladen · Gebäudekacheln sichtbar.";
+			loadStatus.dataset.state = "ready";
+			loadStatus.setAttribute("role", "status");
 		}
 
 		function loadCesium() {
@@ -245,7 +254,7 @@
 			if (loading) return;
 			loading = true;
 			retryButton.hidden = true;
-			loadStatus.textContent = "3D-Gebäude werden geladen …";
+			loadStatus.textContent = "3D-Tileset wird geladen …";
 			loadStatus.dataset.state = "loading";
 			loadStatus.setAttribute("role", "status");
 
@@ -254,6 +263,8 @@
 					viewer.scene.primitives.remove(tileset);
 					tileset = undefined;
 				}
+				initialTilesLoaded = false;
+				visibleBuildingTiles = false;
 
 				if (!window.Cesium) await loadCesium();
 
@@ -289,29 +300,45 @@
 					});
 					viewer.imageryLayers.addImageryProvider(basemap);
 					viewer.camera.setView({
-						destination: Cesium.Cartesian3.fromDegrees(8.2473, 49.9929, 1100),
+						destination: Cesium.Cartesian3.fromDegrees(8.2473, 49.9929, 430),
 						orientation: {
-							heading: Cesium.Math.toRadians(-15),
-							pitch: Cesium.Math.toRadians(-58),
+							heading: Cesium.Math.toRadians(-20),
+							pitch: Cesium.Math.toRadians(-38),
 							roll: 0
 						}
 					});
 				}
 
 				tileset = await Cesium.Cesium3DTileset.fromUrl(tilesetUrl);
+				tileset.style = new Cesium.Cesium3DTileStyle({
+					color: {
+						conditions: [
+							["${surface} === 'wall'", "color('#d7c6a8')"],
+							["${surface} === 'roof'", "color('#b65b45')"],
+							["${surface} === 'bridge'", "color('#78817c')"],
+							["true", "color('#d8d4c8')"]
+						]
+					}
+				});
 				tileset.initialTilesLoaded.addEventListener(() => {
-					if (loadStatus.dataset.state !== "loading") return;
-					loadStatus.textContent = "Amtliche 3D-Gebäudedaten für Mainz geladen.";
-					loadStatus.dataset.state = "ready";
+					initialTilesLoaded = true;
+					updateLoadedStatus();
+				});
+				tileset.tileVisible.addEventListener((tile) => {
+					if (tile.contentReady && tile.content?.featuresLength > 0) {
+						visibleBuildingTiles = true;
+						updateLoadedStatus();
+					}
 				});
 				tileset.tileFailed.addEventListener((event) => {
 					console.error("Eine 3D-Gebäudekachel konnte nicht geladen werden:", event);
-					if (loadStatus.dataset.state === "loading") {
+					if (loadStatus.dataset.state !== "ready") {
 						showError("Die 3D-Gebäudedaten konnten nicht vollständig geladen werden. Prüfe die Verbindung zum Gebäudedienst.");
 					}
 				});
 				viewer.scene.primitives.add(tileset);
-				loadStatus.textContent = "Verbindung zum Gebäudedienst hergestellt; 3D-Kacheln werden geladen …";
+				loadStatus.textContent = "3D-Tileset geladen; sichtbare Gebäudekacheln werden geladen …";
+				loadStatus.dataset.state = "tileset-ready";
 			} catch (error) {
 				console.error("Die Cesium-3D-Karte konnte nicht geladen werden:", error);
 				showError("Die 3D-Gebäude konnten nicht geladen werden. Prüfe deine Internetverbindung oder die Erreichbarkeit des Gebäudedienstes.");
